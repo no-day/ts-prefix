@@ -52,6 +52,21 @@ Prefixed and curried version of JS `+` infix operator. Works for strings and num
 export declare const add: { (n1: number): (n2: number) => number; (s1: string): (s2: string) => string }
 ```
 
+**Example**
+
+```ts
+import { add } from '@no-day/ts-prefix'
+import { pipe } from 'fp-ts/function'
+
+assert.deepStrictEqual(
+  // Native
+  pipe(32, (val) => 2 + val),
+
+  // Prefix
+  pipe(32, add(2))
+)
+```
+
 Added in v0.1.0
 
 ## div
@@ -257,8 +272,15 @@ export declare const call: <N extends string, Args extends any[]>(
 
 ```ts
 import { call } from '@no-day/ts-prefix'
+import { pipe } from 'fp-ts/function'
 
-assert.deepStrictEqual(call('toString')(32), '32')
+assert.deepStrictEqual(
+  // Native
+  pipe(32, (obj) => obj.toString()),
+
+  // Prefix
+  pipe(32, call('toString'))
+)
 ```
 
 Added in v0.1.0
@@ -277,8 +299,15 @@ export declare const get: <N extends string>(propName: N) => <O extends Record<N
 
 ```ts
 import { get } from '@no-day/ts-prefix'
+import { pipe } from 'fp-ts/function'
 
-assert.deepStrictEqual(get('value')({ value: 32 }), 32)
+assert.deepStrictEqual(
+  // Native
+  pipe({ count: 32 }, ({ count }) => count),
+
+  // Prefix
+  pipe({ count: 32 }, get('count'))
+)
 ```
 
 Added in v0.1.0
@@ -300,10 +329,15 @@ export declare const modify: <N extends string, V1, V2>(
 
 ```ts
 import { modify, add } from '@no-day/ts-prefix'
+import { pipe } from 'fp-ts/function'
 
-assert.deepStrictEqual(modify('foo', add(1))({ foo: 10 }), {
-  foo: 11,
-})
+assert.deepStrictEqual(
+  // Native
+  pipe({ count: 32 }, (obj) => ({ count: obj.count + 1 })),
+
+  // Prefix
+  pipe({ count: 32 }, modify('count', add(1)))
+)
 ```
 
 Added in v0.1.0
@@ -325,11 +359,15 @@ export declare const set: <N extends string, V>(
 
 ```ts
 import { set } from '@no-day/ts-prefix'
+import { pipe } from 'fp-ts/function'
 
-assert.deepStrictEqual(set('foo', 32)({ bar: 10 }), {
-  foo: 32,
-  bar: 10,
-})
+assert.deepStrictEqual(
+  // Native
+  pipe({ count: 32 }, (obj) => ({ ...obj, name: 'Joe' })),
+
+  // Prefix
+  pipe({ count: 32 }, set('name', 'Joe'))
+)
 ```
 
 Added in v0.1.0
@@ -348,15 +386,20 @@ export declare const unsafeCoerce: <T>() => <G>(value: G) => T
 
 ```ts
 import { unsafeCoerce } from '@no-day/ts-prefix'
+import { pipe } from 'fp-ts/function'
 
 type Internal = { x: number }
 type Public = { readonly _brand: unique symbol }
 
 const value: Internal = { x: 3 }
 
-assert.deepStrictEqual(unsafeCoerce<Public>()(value), {
-  x: 3,
-})
+assert.deepStrictEqual(
+  // Native
+  pipe(value, (obj) => (obj as unknown) as Public),
+
+  // Prefix
+  pipe(value, unsafeCoerce<Public>())
+)
 ```
 
 Added in v0.1.0
