@@ -21,7 +21,7 @@ export const call = <N extends string>(methodName: N) => <
 ): ReturnType<O[N]> => obj[methodName]();
 
 /**
- * Invoke an object's method
+ * Access an object's field
  *
  * @since 0.1.0
  * @category Utils
