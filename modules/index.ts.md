@@ -36,6 +36,7 @@ Added in v0.1.0
   - [get](#get)
   - [modify](#modify)
   - [set](#set)
+  - [unsafeCoerce](#unsafecoerce)
 
 ---
 
@@ -328,6 +329,33 @@ import { set } from '@no-day/ts-prefix'
 assert.deepStrictEqual(set('foo', 32)({ bar: 10 }), {
   foo: 32,
   bar: 10,
+})
+```
+
+Added in v0.1.0
+
+## unsafeCoerce
+
+Unsafely coerce the type of a value to any other type
+
+**Signature**
+
+```ts
+export declare const unsafeCoerce: <T>() => <G>(value: G) => T
+```
+
+**Example**
+
+```ts
+import { unsafeCoerce } from '@no-day/ts-prefix'
+
+type Internal = { x: number }
+type Public = { readonly _brand: unique symbol }
+
+const value: Internal = { x: 3 }
+
+assert.deepStrictEqual(unsafeCoerce<Public>()(value), {
+  x: 3,
 })
 ```
 
