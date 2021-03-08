@@ -15,12 +15,12 @@ npm install @no-day/ts-prefix
 
 # Example
 
+Instead of:
+
 ```ts
-import { call, add, mul, get } from '@no-day/ts-prefix';
 import { pipe } from 'fp-ts/function';
 
-// Instead of:
-const result1a: string = pipe(
+const result: string = pipe(
   { value: 23 },
   (obj) => obj.value,
   (val) => 23 + val,
@@ -28,8 +28,17 @@ const result1a: string = pipe(
   (val) => val.toString()
 );
 
-// You can now write:
-const result1b: string = pipe(
+console.log(result);
+// --> 92
+```
+
+You can now write:
+
+```ts
+import { call, add, mul, get } from '@no-day/ts-prefix';
+import { pipe } from 'fp-ts/function';
+
+const result: string = pipe(
   { value: 23 },
   get('value'),
   add(23),
@@ -37,6 +46,6 @@ const result1b: string = pipe(
   call('toString')
 );
 
-console.log(result1a, result1b);
-// --> 92 92
+console.log(result);
+// --> 92
 ```

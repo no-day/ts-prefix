@@ -172,7 +172,7 @@ export const or = (v1: boolean) => (v2: boolean): boolean => v1 || v2;
 export const and = (v1: boolean) => (v2: boolean): boolean => v1 && v2;
 
 /**
- * Prefix version `!` unaray operator
+ * Prefix version of JS `!` unary operator
  *
  * @since 0.1.0
  * @category Logical
