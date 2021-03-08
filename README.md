@@ -67,7 +67,7 @@ pipe(
 );
 ```
 
-This compiles, so all good, right? Not really, the typo `ages` is not captured by the type checker. We just add another field `ages` and continue the pipe with something other than `User.
+This compiles, so all good, right? Not really, the typo `ages` is not captured by the type checker. We just add another field `ages` and continue the pipe with something other than `User`.
 One way to protect yourself is to not use the triple dot spread operator, but redefine all fields on every update:
 
 ```ts
