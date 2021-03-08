@@ -1,24 +1,24 @@
 /** @since 0.1.0 */
 
 // -----------------------------------------------------------------------------
-// Utils
+// Records
 // -----------------------------------------------------------------------------
 
 /**
  * Invoke an object's method
  *
  * @since 0.1.0
- * @category Utils
+ * @category Records
  * @example
  *   import { call } from '@no-day/ts-prefix';
  *   import { pipe } from 'fp-ts/function';
  *
  *   assert.deepStrictEqual(
  *     // Native
- *     pipe(32, (obj) => obj.toString()),
+ *     pipe(42, (obj) => obj.toString()),
  *
  *     // Prefix
- *     pipe(32, call('toString'))
+ *     pipe(42, call('toString'))
  *   );
  */
 export const call = <N extends string, Args extends any[]>(
@@ -31,17 +31,17 @@ export const call = <N extends string, Args extends any[]>(
  * Access an object's field
  *
  * @since 0.1.0
- * @category Utils
+ * @category Records
  * @example
  *   import { get } from '@no-day/ts-prefix';
  *   import { pipe } from 'fp-ts/function';
  *
  *   assert.deepStrictEqual(
  *     // Native
- *     pipe({ count: 32 }, ({ count }) => count),
+ *     pipe({ count: 42 }, ({ count }) => count),
  *
  *     // Prefix
- *     pipe({ count: 32 }, get('count'))
+ *     pipe({ count: 42 }, get('count'))
  *   );
  */
 export const get = <N extends string>(propName: N) => <
@@ -54,17 +54,17 @@ export const get = <N extends string>(propName: N) => <
  * Set an object's field to a value
  *
  * @since 0.1.0
- * @category Utils
+ * @category Records
  * @example
  *   import { set } from '@no-day/ts-prefix';
  *   import { pipe } from 'fp-ts/function';
  *
  *   assert.deepStrictEqual(
  *     // Native
- *     pipe({ count: 32 }, (obj) => ({ ...obj, name: 'Joe' })),
+ *     pipe({ count: 42 }, (obj) => ({ ...obj, name: 'Joe' })),
  *
  *     // Prefix
- *     pipe({ count: 32 }, set('name', 'Joe'))
+ *     pipe({ count: 42 }, set('name', 'Joe'))
  *   );
  */
 export const set = <N extends string, V>(propName: N, value: V) => <
@@ -77,17 +77,17 @@ export const set = <N extends string, V>(propName: N, value: V) => <
  * Modify an object's field with a function
  *
  * @since 0.1.0
- * @category Utils
+ * @category Records
  * @example
  *   import { modify, add } from '@no-day/ts-prefix';
  *   import { pipe } from 'fp-ts/function';
  *
  *   assert.deepStrictEqual(
  *     // Native
- *     pipe({ count: 32 }, (obj) => ({ count: obj.count + 1 })),
+ *     pipe({ count: 42 }, (obj) => ({ count: obj.count + 1 })),
  *
  *     // Prefix
- *     pipe({ count: 32 }, modify('count', add(1)))
+ *     pipe({ count: 42 }, modify('count', add(1)))
  *   );
  */
 export const modify = <N extends string, V1, V2>(
@@ -97,6 +97,39 @@ export const modify = <N extends string, V1, V2>(
   ...obj,
   [propName]: fn(obj[propName]),
 });
+
+/**
+ * Delete an object's field
+ *
+ * @since 0.1.0
+ * @category Records
+ * @example
+ *   import { remove } from '@no-day/ts-prefix';
+ *   import { pipe } from 'fp-ts/function';
+ *
+ *   assert.deepStrictEqual(
+ *     // Native
+ *     pipe({ count: 42, name: 'Joe' }, ({ count, ...obj }) => ({
+ *       ...obj,
+ *     })),
+ *
+ *     // Prefix
+ *     pipe({ count: 42, name: 'Joe' }, remove('count'))
+ *   );
+ */
+export const remove = <N extends string>(propName: N) => <
+  O extends Record<N, any>
+>(
+  all: O
+): Omit<O, N> => {
+  const { [propName]: value, ...obj } = all;
+
+  return obj;
+};
+
+// -----------------------------------------------------------------------------
+// Utils
+// -----------------------------------------------------------------------------
 
 /**
  * Unsafely coerce the type of a value to any other type
@@ -138,10 +171,10 @@ export const unsafeCoerce = <T>() => <G>(value: G): T =>
  *
  *   assert.deepStrictEqual(
  *     // Native
- *     pipe(32, (val) => 2 + val),
+ *     pipe(42, (val) => 2 + val),
  *
  *     // Prefix
- *     pipe(32, add(2))
+ *     pipe(42, add(2))
  *   );
  */
 export const add: {
@@ -154,6 +187,17 @@ export const add: {
  *
  * @since 0.1.0
  * @category Arithmetic
+ * @example
+ *   import { sub } from '@no-day/ts-prefix';
+ *   import { pipe } from 'fp-ts/function';
+ *
+ *   assert.deepStrictEqual(
+ *     // Native
+ *     pipe(42, (val) => 2 - val),
+ *
+ *     // Prefix
+ *     pipe(42, sub(2))
+ *   );
  */
 export const sub = (n1: number) => (n2: number): number => n1 - n2;
 
@@ -162,6 +206,17 @@ export const sub = (n1: number) => (n2: number): number => n1 - n2;
  *
  * @since 0.1.0
  * @category Arithmetic
+ * @example
+ *   import { mul } from '@no-day/ts-prefix';
+ *   import { pipe } from 'fp-ts/function';
+ *
+ *   assert.deepStrictEqual(
+ *     // Native
+ *     pipe(42, (val) => 2 * val),
+ *
+ *     // Prefix
+ *     pipe(42, mul(2))
+ *   );
  */
 export const mul = (n1: number) => (n2: number): number => n1 * n2;
 
@@ -170,6 +225,17 @@ export const mul = (n1: number) => (n2: number): number => n1 * n2;
  *
  * @since 0.1.0
  * @category Arithmetic
+ * @example
+ *   import { div } from '@no-day/ts-prefix';
+ *   import { pipe } from 'fp-ts/function';
+ *
+ *   assert.deepStrictEqual(
+ *     // Native
+ *     pipe(42, (val) => 2 / val),
+ *
+ *     // Prefix
+ *     pipe(42, div(2))
+ *   );
  */
 export const div = (n1: number) => (n2: number): number => n1 / n2;
 
@@ -178,6 +244,17 @@ export const div = (n1: number) => (n2: number): number => n1 / n2;
  *
  * @since 0.1.0
  * @category Arithmetic
+ * @example
+ *   import { rem } from '@no-day/ts-prefix';
+ *   import { pipe } from 'fp-ts/function';
+ *
+ *   assert.deepStrictEqual(
+ *     // Native
+ *     pipe(42, (val) => 2 % val),
+ *
+ *     // Prefix
+ *     pipe(42, rem(2))
+ *   );
  */
 export const rem = (n1: number) => (n2: number): number => n1 % n2;
 
@@ -186,6 +263,17 @@ export const rem = (n1: number) => (n2: number): number => n1 % n2;
  *
  * @since 0.1.0
  * @category Arithmetic
+ * @example
+ *   import { exp } from '@no-day/ts-prefix';
+ *   import { pipe } from 'fp-ts/function';
+ *
+ *   assert.deepStrictEqual(
+ *     // Native
+ *     pipe(42, (val) => 2 ** val),
+ *
+ *     // Prefix
+ *     pipe(42, exp(2))
+ *   );
  */
 export const exp = (n1: number) => (n2: number): number => n1 ** n2;
 
@@ -198,6 +286,17 @@ export const exp = (n1: number) => (n2: number): number => n1 ** n2;
  *
  * @since 0.1.0
  * @category Comparison
+ * @example
+ *   import { lt } from '@no-day/ts-prefix';
+ *   import { pipe } from 'fp-ts/function';
+ *
+ *   assert.deepStrictEqual(
+ *     // Native
+ *     pipe(42, (val) => 2 < val),
+ *
+ *     // Prefix
+ *     pipe(42, lt(2))
+ *   );
  */
 export const lt = <A>(v1: A) => (v2: A): boolean => v1 < v2;
 
@@ -206,6 +305,17 @@ export const lt = <A>(v1: A) => (v2: A): boolean => v1 < v2;
  *
  * @since 0.1.0
  * @category Comparison
+ * @example
+ *   import { lte } from '@no-day/ts-prefix';
+ *   import { pipe } from 'fp-ts/function';
+ *
+ *   assert.deepStrictEqual(
+ *     // Native
+ *     pipe(42, (val) => 2 <= val),
+ *
+ *     // Prefix
+ *     pipe(42, lte(2))
+ *   );
  */
 export const lte = <A>(v1: A) => (v2: A): boolean => v1 <= v2;
 
@@ -214,6 +324,17 @@ export const lte = <A>(v1: A) => (v2: A): boolean => v1 <= v2;
  *
  * @since 0.1.0
  * @category Comparison
+ * @example
+ *   import { gt } from '@no-day/ts-prefix';
+ *   import { pipe } from 'fp-ts/function';
+ *
+ *   assert.deepStrictEqual(
+ *     // Native
+ *     pipe(42, (val) => 2 > val),
+ *
+ *     // Prefix
+ *     pipe(42, gt(2))
+ *   );
  */
 export const gt = <A>(v1: A) => (v2: A): boolean => v1 > v2;
 
@@ -222,6 +343,17 @@ export const gt = <A>(v1: A) => (v2: A): boolean => v1 > v2;
  *
  * @since 0.1.0
  * @category Comparison
+ * @example
+ *   import { gte } from '@no-day/ts-prefix';
+ *   import { pipe } from 'fp-ts/function';
+ *
+ *   assert.deepStrictEqual(
+ *     // Native
+ *     pipe(42, (val) => 2 >= val),
+ *
+ *     // Prefix
+ *     pipe(42, gte(2))
+ *   );
  */
 export const gte = <A>(v1: A) => (v2: A): boolean => v1 >= v2;
 
@@ -230,6 +362,17 @@ export const gte = <A>(v1: A) => (v2: A): boolean => v1 >= v2;
  *
  * @since 0.1.0
  * @category Comparison
+ * @example
+ *   import { eq } from '@no-day/ts-prefix';
+ *   import { pipe } from 'fp-ts/function';
+ *
+ *   assert.deepStrictEqual(
+ *     // Native
+ *     pipe(42, (val) => 2 == val),
+ *
+ *     // Prefix
+ *     pipe(42, eq(2))
+ *   );
  */
 export const eq = <A>(v1: A) => (v2: A): boolean => v1 == v2;
 
@@ -238,7 +381,19 @@ export const eq = <A>(v1: A) => (v2: A): boolean => v1 == v2;
  *
  * @since 0.1.0
  * @category Comparison
+ * @example
+ *   import { neq } from '@no-day/ts-prefix';
+ *   import { pipe } from 'fp-ts/function';
+ *
+ *   assert.deepStrictEqual(
+ *     // Native
+ *     pipe(42, (val) => 2 != val),
+ *
+ *     // Prefix
+ *     pipe(42, neq(2))
+ *   );
  */
+
 export const neq = <A>(v1: A) => (v2: A): boolean => v1 != v2;
 
 /**
@@ -246,7 +401,19 @@ export const neq = <A>(v1: A) => (v2: A): boolean => v1 != v2;
  *
  * @since 0.1.0
  * @category Comparison
+ * @example
+ *   import { neqq } from '@no-day/ts-prefix';
+ *   import { pipe } from 'fp-ts/function';
+ *
+ *   assert.deepStrictEqual(
+ *     // Native
+ *     pipe(42, (val) => 2 !== val),
+ *
+ *     // Prefix
+ *     pipe(42, neqq(2))
+ *   );
  */
+
 export const neqq = <A>(v1: A) => (v2: A): boolean => v1 !== v2;
 
 /// -----------------------------------------------------------------------------
@@ -258,7 +425,19 @@ export const neqq = <A>(v1: A) => (v2: A): boolean => v1 !== v2;
  *
  * @since 0.1.0
  * @category Logical
+ * @example
+ *   import { or } from '@no-day/ts-prefix';
+ *   import { pipe } from 'fp-ts/function';
+ *
+ *   assert.deepStrictEqual(
+ *     // Native
+ *     pipe(true, (val) => val || false),
+ *
+ *     // Prefix
+ *     pipe(true, or(false))
+ *   );
  */
+
 export const or = (v1: boolean) => (v2: boolean): boolean => v1 || v2;
 
 /**
@@ -266,6 +445,17 @@ export const or = (v1: boolean) => (v2: boolean): boolean => v1 || v2;
  *
  * @since 0.1.0
  * @category Logical
+ * @example
+ *   import { and } from '@no-day/ts-prefix';
+ *   import { pipe } from 'fp-ts/function';
+ *
+ *   assert.deepStrictEqual(
+ *     // Native
+ *     pipe(true, (val) => val && true),
+ *
+ *     // Prefix
+ *     pipe(true, and(true))
+ *   );
  */
 export const and = (v1: boolean) => (v2: boolean): boolean => v1 && v2;
 
@@ -274,5 +464,16 @@ export const and = (v1: boolean) => (v2: boolean): boolean => v1 && v2;
  *
  * @since 0.1.0
  * @category Logical
+ * @example
+ *   import { not } from '@no-day/ts-prefix';
+ *   import { pipe } from 'fp-ts/function';
+ *
+ *   assert.deepStrictEqual(
+ *     // Native
+ *     pipe(true, (val) => !val),
+ *
+ *     // Prefix
+ *     pipe(true, not)
+ *   );
  */
 export const not = (b: boolean): boolean => !b;

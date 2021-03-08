@@ -1,17 +1,21 @@
 import * as prefix from '../src';
 import { deepStrictEqual, notStrictEqual } from 'assert';
 import * as fc from 'fast-check';
+import { pipe } from 'fp-ts/function';
 
 describe('index', () => {
-  describe('Utils', () => {
+  describe('Records', () => {
     describe('call', () => {
       it('calls a method with no arguments', () => {
-        deepStrictEqual(prefix.call('foo')({ foo: () => true }), true);
+        deepStrictEqual(pipe({ foo: () => true }, prefix.call('foo')), true);
       });
 
       it('calls a method with arguments', () => {
         deepStrictEqual(
-          prefix.call('foo', 2, 'bar')({ foo: (x: number, v: string) => true }),
+          pipe(
+            { foo: (x: number, v: string) => true },
+            prefix.call('foo', 2, 'bar')
+          ),
           true
         );
       });
@@ -19,20 +23,20 @@ describe('index', () => {
 
     describe('get', () => {
       it("gets an object's propery", () => {
-        deepStrictEqual(prefix.get('foo')({ foo: 32 }), 32);
+        deepStrictEqual(pipe({ foo: 32 }, prefix.get('foo')), 32);
       });
     });
 
     describe('set', () => {
       it('sets a new property in an object', () => {
-        deepStrictEqual(prefix.set('foo', 32)({ bar: 10 }), {
+        deepStrictEqual(pipe({ bar: 10 }, prefix.set('foo', 32)), {
           bar: 10,
           foo: 32,
         });
       });
 
       it('sets an existing property in an object', () => {
-        deepStrictEqual(prefix.set('foo', 32)({ foo: 10 }), { foo: 32 });
+        deepStrictEqual(pipe({ foo: 10 }, prefix.set('foo', 32)), { foo: 32 });
       });
 
       it('does not mutate', () => {
@@ -45,9 +49,12 @@ describe('index', () => {
 
     describe('modify', () => {
       it('modifies an existing property in an object', () => {
-        deepStrictEqual(prefix.modify('foo', prefix.add(1))({ foo: 32 }), {
-          foo: 33,
-        });
+        deepStrictEqual(
+          pipe({ foo: 32 }, prefix.modify('foo', prefix.add(1))),
+          {
+            foo: 33,
+          }
+        );
       });
 
       it('does not mutate', () => {
@@ -58,6 +65,23 @@ describe('index', () => {
       });
     });
 
+    describe('remove', () => {
+      it('removes an existing property in an object', () => {
+        deepStrictEqual(pipe({ foo: 10, bar: 1 }, prefix.remove('foo')), {
+          bar: 1,
+        });
+      });
+
+      it('does not mutate', () => {
+        const oldObj = { bar: 10 };
+        const newObj = pipe({ foo: 10, bar: 1 }, prefix.remove('bar'));
+
+        notStrictEqual(oldObj, newObj);
+      });
+    });
+  });
+
+  describe('Utils', () => {
     describe('unsafeCoerce', () => {
       type Internal = { x: number };
       type Public = { readonly _brand: unique symbol };
