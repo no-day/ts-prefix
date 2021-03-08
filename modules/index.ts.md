@@ -213,7 +213,7 @@ Added in v0.1.0
 
 ## not
 
-Prefix version `!` unaray operator
+Prefix version of JS `!` unary operator
 
 **Signature**
 
