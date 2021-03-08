@@ -71,6 +71,7 @@ export const mul = (n1: number) => (n2: number): number => n1 * n2;
  * Prefixed and curried version of JS `/` infix operator
  *
  * @since 0.1.0
+ * @category Arithmetic
  */
 export const div = (n1: number) => (n2: number): number => n1 / n2;
 
