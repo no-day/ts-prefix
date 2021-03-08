@@ -41,7 +41,7 @@ describe('index', () => {
 
       it('does not mutate', () => {
         const oldObj = { bar: 10 };
-        const newObj = prefix.set('foo', 32)({ bar: 10 });
+        const newObj = prefix.set('foo', 32)(oldObj);
 
         notStrictEqual(oldObj, newObj);
       });
@@ -58,8 +58,8 @@ describe('index', () => {
       });
 
       it('does not mutate', () => {
-        const oldObj = { bar: 10 };
-        const newObj = prefix.modify('foo', (x) => x)({ foo: 10 });
+        const oldObj = { foo: 10 };
+        const newObj = prefix.modify('foo', (x) => x)(oldObj);
 
         notStrictEqual(oldObj, newObj);
       });
@@ -74,7 +74,26 @@ describe('index', () => {
 
       it('does not mutate', () => {
         const oldObj = { bar: 10 };
-        const newObj = pipe({ foo: 10, bar: 1 }, prefix.remove('bar'));
+        const newObj = pipe(oldObj, prefix.remove('bar'));
+
+        notStrictEqual(oldObj, newObj);
+      });
+    });
+
+    describe('merge', () => {
+      it('does a shallow merge of two objects', () => {
+        deepStrictEqual(
+          pipe({ foo: 10, baz: { a: 1 } }, prefix.merge({ baz: 3 })),
+          {
+            foo: 10,
+            baz: { a: 1 },
+          }
+        );
+      });
+
+      it('does not mutate', () => {
+        const oldObj = { bar: 10 };
+        const newObj = pipe(oldObj, prefix.merge({}));
 
         notStrictEqual(oldObj, newObj);
       });

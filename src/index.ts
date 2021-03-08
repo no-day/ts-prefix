@@ -99,6 +99,37 @@ export const modify = <N extends string, V1, V2>(
 });
 
 /**
+ * Merge two objects
+ *
+ * @since 0.1.0
+ * @category Records
+ * @example
+ *   import { merge } from '@no-day/ts-prefix';
+ *   import { pipe } from 'fp-ts/function';
+ *
+ *   assert.deepStrictEqual(
+ *     // Native
+ *     pipe({ count: 42, name: 'Joe' }, ({ ...obj }) => ({
+ *       ...obj,
+ *       street: 'Main Street',
+ *       id: 0,
+ *     })),
+ *
+ *     // Prefix
+ *     pipe(
+ *       { count: 42, name: 'Joe' },
+ *       merge({ street: 'Main Street', id: 0 })
+ *     )
+ *   );
+ */
+export const merge = <O1>(obj1: O1) => <O2>(
+  obj2: O2
+): Omit<O1, keyof O2> & Omit<O2, keyof O1> => ({
+  ...obj1,
+  ...obj2,
+});
+
+/**
  * Delete an object's field
  *
  * @since 0.1.0
