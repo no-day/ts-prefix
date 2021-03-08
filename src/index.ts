@@ -11,8 +11,15 @@
  * @category Utils
  * @example
  *   import { call } from '@no-day/ts-prefix';
+ *   import { pipe } from 'fp-ts/function';
  *
- *   assert.deepStrictEqual(call('toString')(32), '32');
+ *   assert.deepStrictEqual(
+ *     // Native
+ *     pipe(32, (obj) => obj.toString()),
+ *
+ *     // Prefix
+ *     pipe(32, call('toString'))
+ *   );
  */
 export const call = <N extends string, Args extends any[]>(
   methodName: N,
@@ -27,8 +34,15 @@ export const call = <N extends string, Args extends any[]>(
  * @category Utils
  * @example
  *   import { get } from '@no-day/ts-prefix';
+ *   import { pipe } from 'fp-ts/function';
  *
- *   assert.deepStrictEqual(get('value')({ value: 32 }), 32);
+ *   assert.deepStrictEqual(
+ *     // Native
+ *     pipe({ count: 32 }, ({ count }) => count),
+ *
+ *     // Prefix
+ *     pipe({ count: 32 }, get('count'))
+ *   );
  */
 export const get = <N extends string>(propName: N) => <
   O extends Record<N, any>
@@ -43,11 +57,15 @@ export const get = <N extends string>(propName: N) => <
  * @category Utils
  * @example
  *   import { set } from '@no-day/ts-prefix';
+ *   import { pipe } from 'fp-ts/function';
  *
- *   assert.deepStrictEqual(set('foo', 32)({ bar: 10 }), {
- *     foo: 32,
- *     bar: 10,
- *   });
+ *   assert.deepStrictEqual(
+ *     // Native
+ *     pipe({ count: 32 }, (obj) => ({ ...obj, name: 'Joe' })),
+ *
+ *     // Prefix
+ *     pipe({ count: 32 }, set('name', 'Joe'))
+ *   );
  */
 export const set = <N extends string, V>(propName: N, value: V) => <
   O extends Record<any, any>
@@ -62,10 +80,15 @@ export const set = <N extends string, V>(propName: N, value: V) => <
  * @category Utils
  * @example
  *   import { modify, add } from '@no-day/ts-prefix';
+ *   import { pipe } from 'fp-ts/function';
  *
- *   assert.deepStrictEqual(modify('foo', add(1))({ foo: 10 }), {
- *     foo: 11,
- *   });
+ *   assert.deepStrictEqual(
+ *     // Native
+ *     pipe({ count: 32 }, (obj) => ({ count: obj.count + 1 })),
+ *
+ *     // Prefix
+ *     pipe({ count: 32 }, modify('count', add(1)))
+ *   );
  */
 export const modify = <N extends string, V1, V2>(
   propName: N,
@@ -82,15 +105,20 @@ export const modify = <N extends string, V1, V2>(
  * @category Utils
  * @example
  *   import { unsafeCoerce } from '@no-day/ts-prefix';
+ *   import { pipe } from 'fp-ts/function';
  *
  *   type Internal = { x: number };
  *   type Public = { readonly _brand: unique symbol };
  *
  *   const value: Internal = { x: 3 };
  *
- *   assert.deepStrictEqual(unsafeCoerce<Public>()(value), {
- *     x: 3,
- *   });
+ *   assert.deepStrictEqual(
+ *     // Native
+ *     pipe(value, (obj) => (obj as unknown) as Public),
+ *
+ *     // Prefix
+ *     pipe(value, unsafeCoerce<Public>())
+ *   );
  */
 export const unsafeCoerce = <T>() => <G>(value: G): T =>
   (value as unknown) as T;
@@ -104,6 +132,17 @@ export const unsafeCoerce = <T>() => <G>(value: G): T =>
  *
  * @since 0.1.0
  * @category Arithmetic
+ * @example
+ *   import { add } from '@no-day/ts-prefix';
+ *   import { pipe } from 'fp-ts/function';
+ *
+ *   assert.deepStrictEqual(
+ *     // Native
+ *     pipe(32, (val) => 2 + val),
+ *
+ *     // Prefix
+ *     pipe(32, add(2))
+ *   );
  */
 export const add: {
   (n1: number): (n2: number) => number;
