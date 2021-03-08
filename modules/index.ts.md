@@ -34,6 +34,8 @@ Added in v0.1.0
 - [Utils](#utils)
   - [call](#call)
   - [get](#get)
+  - [modify](#modify)
+  - [set](#set)
 
 ---
 
@@ -244,9 +246,10 @@ Invoke an object's method
 **Signature**
 
 ```ts
-export declare const call: <N extends string>(
-  methodName: N
-) => <O extends Record<N, () => any>>(obj: O) => ReturnType<O[N]>
+export declare const call: <N extends string, Args extends any[]>(
+  methodName: N,
+  ...args: Args
+) => <O extends Record<N, (...args: Args) => any>>(obj: O) => ReturnType<O[N]>
 ```
 
 **Example**
@@ -275,6 +278,57 @@ export declare const get: <N extends string>(propName: N) => <O extends Record<N
 import { get } from '@no-day/ts-prefix'
 
 assert.deepStrictEqual(get('value')({ value: 32 }), 32)
+```
+
+Added in v0.1.0
+
+## modify
+
+Modify an object's field with a function
+
+**Signature**
+
+```ts
+export declare const modify: <N extends string, V1, V2>(
+  propName: N,
+  fn: (value: V1) => V2
+) => <O extends Record<N, V1>>(obj: O) => O & Record<N, V2>
+```
+
+**Example**
+
+```ts
+import { modify, add } from '@no-day/ts-prefix'
+
+assert.deepStrictEqual(modify('foo', add(1))({ foo: 10 }), {
+  foo: 11,
+})
+```
+
+Added in v0.1.0
+
+## set
+
+Set an object's field to a value
+
+**Signature**
+
+```ts
+export declare const set: <N extends string, V>(
+  propName: N,
+  value: V
+) => <O extends Record<any, any>>(obj: O) => O & Record<N, V>
+```
+
+**Example**
+
+```ts
+import { set } from '@no-day/ts-prefix'
+
+assert.deepStrictEqual(set('foo', 32)({ bar: 10 }), {
+  foo: 32,
+  bar: 10,
+})
 ```
 
 Added in v0.1.0
