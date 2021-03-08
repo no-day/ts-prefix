@@ -241,7 +241,7 @@ export declare const call: <N extends string>(
 **Example**
 
 ```ts
-import { call } from '@no-day/ts-cecinestpasunepipe'
+import { call } from '@no-day/ts-prefix'
 
 assert.deepStrictEqual(call('toString')(32), '32')
 ```
@@ -261,7 +261,7 @@ export declare const get: <N extends string>(propName: N) => <O extends Record<N
 **Example**
 
 ```ts
-import { get } from '@no-day/ts-cecinestpasunepipe'
+import { get } from '@no-day/ts-prefix'
 
 assert.deepStrictEqual(get('value')({ value: 32 }), 32)
 ```
