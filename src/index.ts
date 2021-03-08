@@ -14,11 +14,11 @@
  *
  *   assert.deepStrictEqual(call('toString')(32), '32');
  */
-export const call = <N extends string>(methodName: N) => <
-  O extends Record<N, () => any>
->(
-  obj: O
-): ReturnType<O[N]> => obj[methodName]();
+export const call = <N extends string, Args extends any[]>(
+  methodName: N,
+  ...args: Args
+) => <O extends Record<N, (...args: Args) => any>>(obj: O): ReturnType<O[N]> =>
+  obj[methodName](...args);
 
 /**
  * Access an object's field
@@ -35,6 +35,45 @@ export const get = <N extends string>(propName: N) => <
 >(
   obj: O
 ): O[N] => obj[propName];
+
+/**
+ * Set an object's field to a value
+ *
+ * @since 0.1.0
+ * @category Utils
+ * @example
+ *   import { set } from '@no-day/ts-prefix';
+ *
+ *   assert.deepStrictEqual(set('foo', 32)({ bar: 10 }), {
+ *     foo: 32,
+ *     bar: 10,
+ *   });
+ */
+export const set = <N extends string, V>(propName: N, value: V) => <
+  O extends Record<any, any>
+>(
+  obj: O
+): O & Record<N, V> => ({ ...obj, [propName]: value });
+
+/**
+ * Modify an object's field with a function
+ *
+ * @since 0.1.0
+ * @category Utils
+ * @example
+ *   import { modify } from '@no-day/ts-prefix';
+ *
+ *   assert.deepStrictEqual(modify('foo', (x) => x + 1)({ foo: 10 }), {
+ *     foo: 33,
+ *   });
+ */
+export const modify = <N extends string, V1, V2>(
+  propName: N,
+  fn: (value: V1) => V2
+) => <O extends Record<N, V1>>(obj: O): O & Record<N, V2> => ({
+  ...obj,
+  [propName]: fn(obj[propName]),
+});
 
 // -----------------------------------------------------------------------------
 // Arithmetic
