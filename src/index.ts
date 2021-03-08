@@ -75,6 +75,26 @@ export const modify = <N extends string, V1, V2>(
   [propName]: fn(obj[propName]),
 });
 
+/**
+ * Unsafely coerce the type of a value to any other type
+ *
+ * @since 0.1.0
+ * @category Utils
+ * @example
+ *   import { unsafeCoerce } from '@no-day/ts-prefix';
+ *
+ *   type Internal = { x: number };
+ *   type Public = { readonly _brand: unique symbol };
+ *
+ *   const value: Internal = { x: 3 };
+ *
+ *   assert.deepStrictEqual(unsafeCoerce<Public>()(value), {
+ *     x: 3,
+ *   });
+ */
+export const unsafeCoerce = <T>() => <G>(value: G): T =>
+  (value as unknown) as T;
+
 // -----------------------------------------------------------------------------
 // Arithmetic
 // -----------------------------------------------------------------------------

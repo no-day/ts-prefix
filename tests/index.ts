@@ -57,6 +57,19 @@ describe('index', () => {
         notStrictEqual(oldObj, newObj);
       });
     });
+
+    describe('unsafeCoerce', () => {
+      type Internal = { x: number };
+      type Public = { readonly _brand: unique symbol };
+
+      const value: Internal = { x: 3 };
+
+      const result: Public = prefix.unsafeCoerce<Public>()(value);
+
+      it('coerces a value to another type but keeps its runtime representation', () => {
+        deepStrictEqual(result, { x: 3 });
+      });
+    });
   });
 
   describe('Arithmetic', () => {
