@@ -34,6 +34,7 @@ Added in v0.1.0
 - [Records](#records)
   - [call](#call)
   - [get](#get)
+  - [merge](#merge)
   - [modify](#modify)
   - [remove](#remove)
   - [set](#set)
@@ -534,6 +535,39 @@ assert.deepStrictEqual(
 
   // Prefix
   pipe({ count: 42 }, get('count'))
+)
+```
+
+Added in v0.1.0
+
+## merge
+
+Merge two objects
+
+**Signature**
+
+```ts
+export declare const merge: <O1>(
+  obj1: O1
+) => <O2>(obj2: O2) => Pick<O1, Exclude<keyof O1, keyof O2>> & Pick<O2, Exclude<keyof O2, keyof O1>>
+```
+
+**Example**
+
+```ts
+import { merge } from '@no-day/ts-prefix'
+import { pipe } from 'fp-ts/function'
+
+assert.deepStrictEqual(
+  // Native
+  pipe({ count: 42, name: 'Joe' }, ({ ...obj }) => ({
+    ...obj,
+    street: 'Main Street',
+    id: 0,
+  })),
+
+  // Prefix
+  pipe({ count: 42, name: 'Joe' }, merge({ street: 'Main Street', id: 0 }))
 )
 ```
 
