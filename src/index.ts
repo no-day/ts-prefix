@@ -61,10 +61,10 @@ export const set = <N extends string, V>(propName: N, value: V) => <
  * @since 0.1.0
  * @category Utils
  * @example
- *   import { modify } from '@no-day/ts-prefix';
+ *   import { modify, add } from '@no-day/ts-prefix';
  *
- *   assert.deepStrictEqual(modify('foo', (x) => x + 1)({ foo: 10 }), {
- *     foo: 33,
+ *   assert.deepStrictEqual(modify('foo', add(1))({ foo: 10 }), {
+ *     foo: 11,
  *   });
  */
 export const modify = <N extends string, V1, V2>(
