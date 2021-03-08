@@ -9,6 +9,12 @@ Plus the goodies `call` and `get` for convenient method invocation and property 
 
 [Api Docs](https://no-day.github.io/ts-cecinestpasunepipe/modules/index.ts.html)
 
+# Install
+
+```bash
+npm install @no-day/ts-cecinestpasunepipe
+```
+
 # Example
 
 ```ts
