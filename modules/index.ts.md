@@ -14,6 +14,7 @@ Added in v0.1.0
 
 - [Arithmetic](#arithmetic)
   - [add](#add)
+  - [div](#div)
   - [exp](#exp)
   - [mul](#mul)
   - [rem](#rem)
@@ -33,8 +34,6 @@ Added in v0.1.0
 - [Utils](#utils)
   - [call](#call)
   - [get](#get)
-- [utils](#utils)
-  - [div](#div)
 
 ---
 
@@ -48,6 +47,18 @@ Prefixed and curried version of JS `+` infix operator. Works for strings and num
 
 ```ts
 export declare const add: { (n1: number): (n2: number) => number; (s1: string): (s2: string) => string }
+```
+
+Added in v0.1.0
+
+## div
+
+Prefixed and curried version of JS `/` infix operator
+
+**Signature**
+
+```ts
+export declare const div: (n1: number) => (n2: number) => number
 ```
 
 Added in v0.1.0
@@ -264,20 +275,6 @@ export declare const get: <N extends string>(propName: N) => <O extends Record<N
 import { get } from '@no-day/ts-prefix'
 
 assert.deepStrictEqual(get('value')({ value: 32 }), 32)
-```
-
-Added in v0.1.0
-
-# utils
-
-## div
-
-Prefixed and curried version of JS `/` infix operator
-
-**Signature**
-
-```ts
-export declare const div: (n1: number) => (n2: number) => number
 ```
 
 Added in v0.1.0
