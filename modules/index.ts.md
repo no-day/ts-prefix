@@ -12,29 +12,33 @@ Added in v0.1.0
 
 <h2 class="text-delta">Table of contents</h2>
 
-- [utils](#utils)
+- [Arithmetic](#arithmetic)
   - [add](#add)
-  - [and](#and)
-  - [call](#call)
-  - [div](#div)
-  - [eq](#eq)
   - [exp](#exp)
-  - [get](#get)
+  - [mul](#mul)
+  - [rem](#rem)
+  - [sub](#sub)
+- [Comparison](#comparison)
+  - [eq](#eq)
   - [gt](#gt)
   - [gte](#gte)
   - [lt](#lt)
   - [lte](#lte)
-  - [mul](#mul)
   - [neq](#neq)
   - [neqq](#neqq)
+- [Logical](#logical)
+  - [and](#and)
   - [not](#not)
   - [or](#or)
-  - [rem](#rem)
-  - [sub](#sub)
+- [Utils](#utils)
+  - [call](#call)
+  - [get](#get)
+- [utils](#utils)
+  - [div](#div)
 
 ---
 
-# utils
+# Arithmetic
 
 ## add
 
@@ -44,64 +48,6 @@ Prefixed and curried version of JS `+` infix operator. Works for strings and num
 
 ```ts
 export declare const add: { (n1: number): (n2: number) => number; (s1: string): (s2: string) => string }
-```
-
-Added in v0.1.0
-
-## and
-
-Prefixed and curried version of JS `&&` infix operator
-
-**Signature**
-
-```ts
-export declare const and: (v1: boolean) => (v2: boolean) => boolean
-```
-
-Added in v0.1.0
-
-## call
-
-Invoke an object's method
-
-**Signature**
-
-```ts
-export declare const call: <N extends string>(
-  methodName: N
-) => <O extends Record<N, () => any>>(obj: O) => ReturnType<O[N]>
-```
-
-**Example**
-
-```ts
-import { call } from '@no-day/ts-cecinestpasunepipe'
-
-assert.deepStrictEqual(call('toString')(32), '32')
-```
-
-Added in v0.1.0
-
-## div
-
-Prefixed and curried version of JS `/` infix operator
-
-**Signature**
-
-```ts
-export declare const div: (n1: number) => (n2: number) => number
-```
-
-Added in v0.1.0
-
-## eq
-
-Prefixed and curried version of JS `==` infix operator
-
-**Signature**
-
-```ts
-export declare const eq: <A>(v1: A) => (v2: A) => boolean
 ```
 
 Added in v0.1.0
@@ -118,22 +64,52 @@ export declare const exp: (n1: number) => (n2: number) => number
 
 Added in v0.1.0
 
-## get
+## mul
 
-Invoke an object's method
+Prefixed and curried version of JS `*` infix operator
 
 **Signature**
 
 ```ts
-export declare const get: <N extends string>(propName: N) => <O extends Record<N, any>>(obj: O) => O[N]
+export declare const mul: (n1: number) => (n2: number) => number
 ```
 
-**Example**
+Added in v0.1.0
+
+## rem
+
+Prefixed and curried version of JS `%` infix operator
+
+**Signature**
 
 ```ts
-import { get } from '@no-day/ts-cecinestpasunepipe'
+export declare const rem: (n1: number) => (n2: number) => number
+```
 
-assert.deepStrictEqual(get('value')({ value: 32 }), 32)
+Added in v0.1.0
+
+## sub
+
+Prefixed and curried version of JS `-` infix operator
+
+**Signature**
+
+```ts
+export declare const sub: (n1: number) => (n2: number) => number
+```
+
+Added in v0.1.0
+
+# Comparison
+
+## eq
+
+Prefixed and curried version of JS `==` infix operator
+
+**Signature**
+
+```ts
+export declare const eq: <A>(v1: A) => (v2: A) => boolean
 ```
 
 Added in v0.1.0
@@ -186,18 +162,6 @@ export declare const lte: <A>(v1: A) => (v2: A) => boolean
 
 Added in v0.1.0
 
-## mul
-
-Prefixed and curried version of JS `*` infix operator
-
-**Signature**
-
-```ts
-export declare const mul: (n1: number) => (n2: number) => number
-```
-
-Added in v0.1.0
-
 ## neq
 
 Prefixed and curried version of JS `!=` infix operator
@@ -218,6 +182,20 @@ Prefixed and curried version of JS `!==` infix operator
 
 ```ts
 export declare const neqq: <A>(v1: A) => (v2: A) => boolean
+```
+
+Added in v0.1.0
+
+# Logical
+
+## and
+
+Prefixed and curried version of JS `&&` infix operator
+
+**Signature**
+
+```ts
+export declare const and: (v1: boolean) => (v2: boolean) => boolean
 ```
 
 Added in v0.1.0
@@ -246,26 +224,60 @@ export declare const or: (v1: boolean) => (v2: boolean) => boolean
 
 Added in v0.1.0
 
-## rem
+# Utils
 
-Prefixed and curried version of JS `%` infix operator
+## call
+
+Invoke an object's method
 
 **Signature**
 
 ```ts
-export declare const rem: (n1: number) => (n2: number) => number
+export declare const call: <N extends string>(
+  methodName: N
+) => <O extends Record<N, () => any>>(obj: O) => ReturnType<O[N]>
+```
+
+**Example**
+
+```ts
+import { call } from '@no-day/ts-cecinestpasunepipe'
+
+assert.deepStrictEqual(call('toString')(32), '32')
 ```
 
 Added in v0.1.0
 
-## sub
+## get
 
-Prefixed and curried version of JS `-` infix operator
+Invoke an object's method
 
 **Signature**
 
 ```ts
-export declare const sub: (n1: number) => (n2: number) => number
+export declare const get: <N extends string>(propName: N) => <O extends Record<N, any>>(obj: O) => O[N]
+```
+
+**Example**
+
+```ts
+import { get } from '@no-day/ts-cecinestpasunepipe'
+
+assert.deepStrictEqual(get('value')({ value: 32 }), 32)
+```
+
+Added in v0.1.0
+
+# utils
+
+## div
+
+Prefixed and curried version of JS `/` infix operator
+
+**Signature**
+
+```ts
+export declare const div: (n1: number) => (n2: number) => number
 ```
 
 Added in v0.1.0
