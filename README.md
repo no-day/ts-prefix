@@ -1,24 +1,22 @@
-# ts-cecinestpasunepipe
+# ts-prefix
 
-[Ceci n'est pas une pipe](https://en.wikipedia.org/wiki/The_Treachery_of_Images): Piping utils for TypeScript
-
-JavaScript binaray/infix and unaray operators in curried prefix notation.
+JavaScript infix and unary operators in prefix notation.
 Plus the goodies `call` and `get` for convenient method invocation and property access in pipeline settings.
 
 # Docs
 
-[Api Docs](https://no-day.github.io/ts-cecinestpasunepipe/modules/index.ts.html)
+[Api Docs](https://no-day.github.io/ts-prefix/modules/index.ts.html)
 
 # Install
 
 ```bash
-npm install @no-day/ts-cecinestpasunepipe
+npm install @no-day/ts-prefix
 ```
 
 # Example
 
 ```ts
-import { call, add, mul, get } from '@no-day/ts-cecinestpasunepipe';
+import { call, add, mul, get } from '@no-day/ts-prefix';
 import { pipe } from 'fp-ts/function';
 
 // Instead of:

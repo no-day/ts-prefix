@@ -10,7 +10,7 @@
  * @since 0.1.0
  * @category Utils
  * @example
- *   import { call } from '@no-day/ts-cecinestpasunepipe';
+ *   import { call } from '@no-day/ts-prefix';
  *
  *   assert.deepStrictEqual(call('toString')(32), '32');
  */
@@ -26,7 +26,7 @@ export const call = <N extends string>(methodName: N) => <
  * @since 0.1.0
  * @category Utils
  * @example
- *   import { get } from '@no-day/ts-cecinestpasunepipe';
+ *   import { get } from '@no-day/ts-prefix';
  *
  *   assert.deepStrictEqual(get('value')({ value: 32 }), 32);
  */
