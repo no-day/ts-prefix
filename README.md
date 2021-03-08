@@ -7,7 +7,7 @@ Plus the goodies `call` and `get` for convenient method invocation and property 
 
 # Docs
 
-[Api Docs]()
+[Api Docs](https://no-day.github.io/ts-cecinestpasunepipe/modules/index.ts.html)
 
 # Example
 

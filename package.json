@@ -5,6 +5,7 @@
   "main": "index.js",
   "license": "MIT",
   "devDependencies": {
+    "@types/node": "^14.14.32",
     "docs-ts": "^0.6.4",
     "fp-ts": "^2.9.5",
     "prettier": "^2.2.1",
