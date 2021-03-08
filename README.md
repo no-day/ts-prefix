@@ -1,7 +1,7 @@
 # ts-prefix
 
 JavaScript infix and unary operators in prefix notation.
-Plus the goodies `call` and `get` for convenient method invocation and property access in pipeline settings.
+Plus some functions for convenient and save record manipulation in pipes.
 
 # Docs
 
