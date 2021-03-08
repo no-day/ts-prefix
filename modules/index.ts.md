@@ -261,7 +261,7 @@ Added in v0.1.0
 
 ## get
 
-Invoke an object's method
+Access an object's field
 
 **Signature**
 
