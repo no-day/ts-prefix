@@ -31,11 +31,13 @@ Added in v0.1.0
   - [and](#and)
   - [not](#not)
   - [or](#or)
-- [Utils](#utils)
+- [Records](#records)
   - [call](#call)
   - [get](#get)
   - [modify](#modify)
+  - [remove](#remove)
   - [set](#set)
+- [Utils](#utils)
   - [unsafeCoerce](#unsafecoerce)
 
 ---
@@ -60,10 +62,10 @@ import { pipe } from 'fp-ts/function'
 
 assert.deepStrictEqual(
   // Native
-  pipe(32, (val) => 2 + val),
+  pipe(42, (val) => 2 + val),
 
   // Prefix
-  pipe(32, add(2))
+  pipe(42, add(2))
 )
 ```
 
@@ -79,6 +81,21 @@ Prefixed and curried version of JS `/` infix operator
 export declare const div: (n1: number) => (n2: number) => number
 ```
 
+**Example**
+
+```ts
+import { div } from '@no-day/ts-prefix'
+import { pipe } from 'fp-ts/function'
+
+assert.deepStrictEqual(
+  // Native
+  pipe(42, (val) => 2 / val),
+
+  // Prefix
+  pipe(42, div(2))
+)
+```
+
 Added in v0.1.0
 
 ## exp
@@ -89,6 +106,21 @@ Prefixed and curried version of JS `**` infix operator
 
 ```ts
 export declare const exp: (n1: number) => (n2: number) => number
+```
+
+**Example**
+
+```ts
+import { exp } from '@no-day/ts-prefix'
+import { pipe } from 'fp-ts/function'
+
+assert.deepStrictEqual(
+  // Native
+  pipe(42, (val) => 2 ** val),
+
+  // Prefix
+  pipe(42, exp(2))
+)
 ```
 
 Added in v0.1.0
@@ -103,6 +135,21 @@ Prefixed and curried version of JS `*` infix operator
 export declare const mul: (n1: number) => (n2: number) => number
 ```
 
+**Example**
+
+```ts
+import { mul } from '@no-day/ts-prefix'
+import { pipe } from 'fp-ts/function'
+
+assert.deepStrictEqual(
+  // Native
+  pipe(42, (val) => 2 * val),
+
+  // Prefix
+  pipe(42, mul(2))
+)
+```
+
 Added in v0.1.0
 
 ## rem
@@ -115,6 +162,21 @@ Prefixed and curried version of JS `%` infix operator
 export declare const rem: (n1: number) => (n2: number) => number
 ```
 
+**Example**
+
+```ts
+import { rem } from '@no-day/ts-prefix'
+import { pipe } from 'fp-ts/function'
+
+assert.deepStrictEqual(
+  // Native
+  pipe(42, (val) => 2 % val),
+
+  // Prefix
+  pipe(42, rem(2))
+)
+```
+
 Added in v0.1.0
 
 ## sub
@@ -125,6 +187,21 @@ Prefixed and curried version of JS `-` infix operator
 
 ```ts
 export declare const sub: (n1: number) => (n2: number) => number
+```
+
+**Example**
+
+```ts
+import { sub } from '@no-day/ts-prefix'
+import { pipe } from 'fp-ts/function'
+
+assert.deepStrictEqual(
+  // Native
+  pipe(42, (val) => 2 - val),
+
+  // Prefix
+  pipe(42, sub(2))
+)
 ```
 
 Added in v0.1.0
@@ -141,6 +218,21 @@ Prefixed and curried version of JS `==` infix operator
 export declare const eq: <A>(v1: A) => (v2: A) => boolean
 ```
 
+**Example**
+
+```ts
+import { eq } from '@no-day/ts-prefix'
+import { pipe } from 'fp-ts/function'
+
+assert.deepStrictEqual(
+  // Native
+  pipe(42, (val) => 2 == val),
+
+  // Prefix
+  pipe(42, eq(2))
+)
+```
+
 Added in v0.1.0
 
 ## gt
@@ -151,6 +243,21 @@ Prefixed and curried version of JS `>` infix operator
 
 ```ts
 export declare const gt: <A>(v1: A) => (v2: A) => boolean
+```
+
+**Example**
+
+```ts
+import { gt } from '@no-day/ts-prefix'
+import { pipe } from 'fp-ts/function'
+
+assert.deepStrictEqual(
+  // Native
+  pipe(42, (val) => 2 > val),
+
+  // Prefix
+  pipe(42, gt(2))
+)
 ```
 
 Added in v0.1.0
@@ -165,6 +272,21 @@ Prefixed and curried version of JS `>=` infix operator
 export declare const gte: <A>(v1: A) => (v2: A) => boolean
 ```
 
+**Example**
+
+```ts
+import { gte } from '@no-day/ts-prefix'
+import { pipe } from 'fp-ts/function'
+
+assert.deepStrictEqual(
+  // Native
+  pipe(42, (val) => 2 >= val),
+
+  // Prefix
+  pipe(42, gte(2))
+)
+```
+
 Added in v0.1.0
 
 ## lt
@@ -175,6 +297,21 @@ Prefixed and curried version of JS `<` infix operator
 
 ```ts
 export declare const lt: <A>(v1: A) => (v2: A) => boolean
+```
+
+**Example**
+
+```ts
+import { lt } from '@no-day/ts-prefix'
+import { pipe } from 'fp-ts/function'
+
+assert.deepStrictEqual(
+  // Native
+  pipe(42, (val) => 2 < val),
+
+  // Prefix
+  pipe(42, lt(2))
+)
 ```
 
 Added in v0.1.0
@@ -189,6 +326,21 @@ Prefixed and curried version of JS `<=` infix operator
 export declare const lte: <A>(v1: A) => (v2: A) => boolean
 ```
 
+**Example**
+
+```ts
+import { lte } from '@no-day/ts-prefix'
+import { pipe } from 'fp-ts/function'
+
+assert.deepStrictEqual(
+  // Native
+  pipe(42, (val) => 2 <= val),
+
+  // Prefix
+  pipe(42, lte(2))
+)
+```
+
 Added in v0.1.0
 
 ## neq
@@ -201,6 +353,21 @@ Prefixed and curried version of JS `!=` infix operator
 export declare const neq: <A>(v1: A) => (v2: A) => boolean
 ```
 
+**Example**
+
+```ts
+import { neq } from '@no-day/ts-prefix'
+import { pipe } from 'fp-ts/function'
+
+assert.deepStrictEqual(
+  // Native
+  pipe(42, (val) => 2 != val),
+
+  // Prefix
+  pipe(42, neq(2))
+)
+```
+
 Added in v0.1.0
 
 ## neqq
@@ -211,6 +378,21 @@ Prefixed and curried version of JS `!==` infix operator
 
 ```ts
 export declare const neqq: <A>(v1: A) => (v2: A) => boolean
+```
+
+**Example**
+
+```ts
+import { neqq } from '@no-day/ts-prefix'
+import { pipe } from 'fp-ts/function'
+
+assert.deepStrictEqual(
+  // Native
+  pipe(42, (val) => 2 !== val),
+
+  // Prefix
+  pipe(42, neqq(2))
+)
 ```
 
 Added in v0.1.0
@@ -227,6 +409,21 @@ Prefixed and curried version of JS `&&` infix operator
 export declare const and: (v1: boolean) => (v2: boolean) => boolean
 ```
 
+**Example**
+
+```ts
+import { and } from '@no-day/ts-prefix'
+import { pipe } from 'fp-ts/function'
+
+assert.deepStrictEqual(
+  // Native
+  pipe(true, (val) => val && true),
+
+  // Prefix
+  pipe(true, and(true))
+)
+```
+
 Added in v0.1.0
 
 ## not
@@ -237,6 +434,21 @@ Prefix version of JS `!` unary operator
 
 ```ts
 export declare const not: (b: boolean) => boolean
+```
+
+**Example**
+
+```ts
+import { not } from '@no-day/ts-prefix'
+import { pipe } from 'fp-ts/function'
+
+assert.deepStrictEqual(
+  // Native
+  pipe(true, (val) => !val),
+
+  // Prefix
+  pipe(true, not)
+)
 ```
 
 Added in v0.1.0
@@ -251,9 +463,24 @@ Prefixed and curried version of JS `||` infix operator
 export declare const or: (v1: boolean) => (v2: boolean) => boolean
 ```
 
+**Example**
+
+```ts
+import { or } from '@no-day/ts-prefix'
+import { pipe } from 'fp-ts/function'
+
+assert.deepStrictEqual(
+  // Native
+  pipe(true, (val) => val || false),
+
+  // Prefix
+  pipe(true, or(false))
+)
+```
+
 Added in v0.1.0
 
-# Utils
+# Records
 
 ## call
 
@@ -276,10 +503,10 @@ import { pipe } from 'fp-ts/function'
 
 assert.deepStrictEqual(
   // Native
-  pipe(32, (obj) => obj.toString()),
+  pipe(42, (obj) => obj.toString()),
 
   // Prefix
-  pipe(32, call('toString'))
+  pipe(42, call('toString'))
 )
 ```
 
@@ -303,10 +530,10 @@ import { pipe } from 'fp-ts/function'
 
 assert.deepStrictEqual(
   // Native
-  pipe({ count: 32 }, ({ count }) => count),
+  pipe({ count: 42 }, ({ count }) => count),
 
   // Prefix
-  pipe({ count: 32 }, get('count'))
+  pipe({ count: 42 }, get('count'))
 )
 ```
 
@@ -333,10 +560,41 @@ import { pipe } from 'fp-ts/function'
 
 assert.deepStrictEqual(
   // Native
-  pipe({ count: 32 }, (obj) => ({ count: obj.count + 1 })),
+  pipe({ count: 42 }, (obj) => ({ count: obj.count + 1 })),
 
   // Prefix
-  pipe({ count: 32 }, modify('count', add(1)))
+  pipe({ count: 42 }, modify('count', add(1)))
+)
+```
+
+Added in v0.1.0
+
+## remove
+
+Delete an object's field
+
+**Signature**
+
+```ts
+export declare const remove: <N extends string>(
+  propName: N
+) => <O extends Record<N, any>>(all: O) => Pick<O, Exclude<keyof O, N>>
+```
+
+**Example**
+
+```ts
+import { remove } from '@no-day/ts-prefix'
+import { pipe } from 'fp-ts/function'
+
+assert.deepStrictEqual(
+  // Native
+  pipe({ count: 42, name: 'Joe' }, ({ count, ...obj }) => ({
+    ...obj,
+  })),
+
+  // Prefix
+  pipe({ count: 42, name: 'Joe' }, remove('count'))
 )
 ```
 
@@ -363,14 +621,16 @@ import { pipe } from 'fp-ts/function'
 
 assert.deepStrictEqual(
   // Native
-  pipe({ count: 32 }, (obj) => ({ ...obj, name: 'Joe' })),
+  pipe({ count: 42 }, (obj) => ({ ...obj, name: 'Joe' })),
 
   // Prefix
-  pipe({ count: 32 }, set('name', 'Joe'))
+  pipe({ count: 42 }, set('name', 'Joe'))
 )
 ```
 
 Added in v0.1.0
+
+# Utils
 
 ## unsafeCoerce
 
