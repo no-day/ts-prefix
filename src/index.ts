@@ -124,7 +124,7 @@ export const modify = <N extends string, V1, V2>(
  */
 export const merge = <O1>(obj1: O1) => <O2>(
   obj2: O2
-): Omit<O1, keyof O2> & Omit<O2, keyof O1> => ({
+): ShallowMerge<O1, O2> => ({
   ...obj1,
   ...obj2,
 });
@@ -447,7 +447,7 @@ export const neq = <A>(v1: A) => (v2: A): boolean => v1 != v2;
 
 export const neqq = <A>(v1: A) => (v2: A): boolean => v1 !== v2;
 
-/// -----------------------------------------------------------------------------
+/// ----------------------------------------------------------------------------
 // Logical
 // -----------------------------------------------------------------------------
 
@@ -508,3 +508,15 @@ export const and = (v1: boolean) => (v2: boolean): boolean => v1 && v2;
  *   );
  */
 export const not = (b: boolean): boolean => !b;
+
+/// ----------------------------------------------------------------------------
+// Types
+// -----------------------------------------------------------------------------
+
+/**
+ * Merge two record types shallowly
+ *
+ * @since 0.2.0
+ * @category Types
+ */
+export type ShallowMerge<O1, O2> = Omit<O1, keyof O2> & O2;
