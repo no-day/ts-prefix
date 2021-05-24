@@ -1,7 +1,7 @@
 {
   "name": "@no-day/ts-prefix",
   "homepage": "https://github.com/no-day/ts-prefix",
-  "version": "0.1.0-rc.4",
+  "version": "0.2.0",
   "main": "dist/index.js",
   "license": "MIT",
   "devDependencies": {
