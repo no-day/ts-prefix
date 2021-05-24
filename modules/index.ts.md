@@ -580,10 +580,10 @@ Modify an object's field with a function
 **Signature**
 
 ```ts
-export declare const modify: <N extends string, V1, V2>(
+export declare const modify: <N extends string, V1, V2, O extends Record<N, V1>>(
   propName: N,
-  fn: (value: V1) => V2
-) => <O extends Record<N, V1>>(obj: O) => O & Record<N, V2>
+  fn: (value: O[N]) => V2
+) => (obj: O) => ShallowMerge<O, Record<N, V2>>
 ```
 
 **Example**
