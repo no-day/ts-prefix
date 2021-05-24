@@ -38,6 +38,8 @@ Added in v0.1.0
   - [modify](#modify)
   - [remove](#remove)
   - [set](#set)
+- [Types](#types)
+  - [ShallowMerge (type alias)](#shallowmerge-type-alias)
 - [Utils](#utils)
   - [unsafeCoerce](#unsafecoerce)
 
@@ -547,9 +549,7 @@ Merge two objects
 **Signature**
 
 ```ts
-export declare const merge: <O1>(
-  obj1: O1
-) => <O2>(obj2: O2) => Pick<O1, Exclude<keyof O1, keyof O2>> & Pick<O2, Exclude<keyof O2, keyof O1>>
+export declare const merge: <O1>(obj1: O1) => <O2>(obj2: O2) => ShallowMerge<O1, O2>
 ```
 
 **Example**
@@ -663,6 +663,20 @@ assert.deepStrictEqual(
 ```
 
 Added in v0.1.0
+
+# Types
+
+## ShallowMerge (type alias)
+
+Merge two record types shallowly
+
+**Signature**
+
+```ts
+export type ShallowMerge<O1, O2> = Omit<O1, keyof O2> & O2
+```
+
+Added in v0.2.0
 
 # Utils
 
