@@ -90,10 +90,10 @@ export const set = <N extends string, V>(propName: N, value: V) => <
  *     pipe({ count: 42 }, modify('count', add(1)))
  *   );
  */
-export const modify = <N extends string, V1, V2>(
+export const modify = <N extends string, V1, V2, O extends Record<N, V1>>(
   propName: N,
-  fn: (value: V1) => V2
-) => <O extends Record<N, V1>>(obj: O): O & Record<N, V2> => ({
+  fn: (value: O[N]) => V2
+) => (obj: O): ShallowMerge<O, Record<N, V2>> => ({
   ...obj,
   [propName]: fn(obj[propName]),
 });
